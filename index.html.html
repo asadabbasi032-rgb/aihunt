@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hunt - Discover The Best AI Tools Directory</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-box button:hover {
+            background: #3730a3;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #4f46e5;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e1e5e9;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tool-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .pricing-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-free {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pricing-freemium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .pricing-paid {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .visit-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .visit-btn:hover {
+            background: #3730a3;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-group select {
+            padding: 8px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>AI Hunt</h1>
+            <p>Discover 26,881+ AI Tools for Every Need - The Ultimate AI Tools Directory</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search AI tools (e.g., ChatGPT, image generator, video AI, free tools)...">
+            <button onclick="performSearch()">Search</button>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <button class="category-btn active" onclick="filterCategory('all')">All Tools</button>
+            <button class="category-btn" onclick="filterCategory('ai-writing')">AI Writing</button>
+            <button class="category-btn" onclick="filterCategory('image-generation')">Image Generation</button>
+            <button class="category-btn" onclick="filterCategory('video-animation')">Video & Animation</button>
+            <button class="category-btn" onclick="filterCategory('audio-music')">Audio & Music</button>
+            <button class="category-btn" onclick="filterCategory('productivity')">Productivity</button>
+            <button class="category-btn" onclick="filterCategory('coding')">AI Coding</button>
+            <button class="category-btn" onclick="filterCategory('marketing')">Marketing</button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>Filter by:</label>
+                <select id="pricingFilter" onchange="filterTools()">
+                    <option value="all">All Pricing</option>
+                    <option value="free">Free</option>
+                    <option value="freemium">Freemium</option>
+                    <option value="paid">Paid</option>
+                </select>
+                
+                <select id="sortBy" onchange="sortTools()">
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest</option>
+                    <option value="name">Name A-Z</option>
+                </select>
+            </div>
+            
+            <div class="results-count">
+                Showing <span id="resultsCount">0</span> tools
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <h2>World's Largest AI Tools Collection</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>80+</h3>
+                    <p>AI Tools</p>
+                </div>
+                <div class="stat-item">
+                    <h3>8+</h3>
+                    <p>Categories</p>
+                </div>
+                <div class="stat-item">
+                    <h3>35+</h3>
+                    <p>Free Tools</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Daily</h3>
+                    <p>New Additions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid" id="toolsGrid">
+            <!-- Tools will be loaded here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Complete AI Tools Database - 80+ Tools (Like Toolify.ai)
+        const aiTools = [
+            // AI Writing & Chat Tools (25 tools)
+            {
+                id: 1,
+                name: "ChatGPT",
+                category: "ai-writing",
+                description: "Advanced AI chatbot by OpenAI for conversations, content creation, coding, and problem solving with GPT-4 technology",
+                tags: ["chatbot", "writing", "openai", "free", "gpt-4", "coding", "assistant"],
+                pricing: "freemium",
+                url: "https://chat.openai.com",
+                popularity: 98,
+                isNew: false
+            },
+            {
+                id: 2,
+                name: "Claude AI",
+                category: "ai-writing",
+                description: "Anthropic's AI assistant focused on helpful, honest conversations and detailed writing tasks with large context window",
+                tags: ["writing", "analysis", "conversation", "free", "anthropic", "long-context"],
+                pricing: "freemium",
+                url: "https://claude.ai",
+                popularity: 92,
+                isNew: false
+            },
+            {
+                id: 3,
+                name: "Jasper AI",
+                category: "ai-writing",
+                description: "AI writing assistant specifically designed for marketing copy, blog posts, and business content creation",
+                tags: ["marketing", "copywriting", "content", "business", "seo", "blogging"],
+                pricing: "paid",
+                url: "https://jasper.ai",
+                popularity: 88,
+                isNew: false
+            },
+            {
+                id: 4,
+                name: "Copy.ai",
+                category: "ai-writing",
+                description: "AI-powered copywriting tool for marketing campaigns, social media content, and advertising copy",
+                tags: ["copywriting", "marketing", "social-media", "freemium", "ads", "content"],
+                pricing: "freemium",
+                url: "https://copy.ai",
+                popularity: 85,
+                isNew: false
+            },
+            {
+                id: 5,
+                name: "Writesonic",
+                category: "ai-writing",
+                description: "Comprehensive AI writing tool for blogs, articles, ads, and e-commerce content with SEO optimization",
+                tags: ["blogging", "marketing", "content", "seo", "ecommerce", "articles"],
+                pricing: "freemium",
+                url: "https://writesonic.com",
+                popularity: 82,
+                isNew: false
+            },
+            {
+                id: 6,
+                name: "Grammarly",
+                category: "ai-writing",
+                description: "AI writing assistant that provides real-time grammar checking, style suggestions, and plagiarism detection",
+                tags: ["grammar", "editing", "proofreading", "writing", "premium", "spell-check"],
+                pricing: "freemium",
+                url: "https://grammarly.com",
+                popularity: 95,
+                isNew: false
+            },
+            {
+                id: 7,
+                name: "QuillBot",
+                category: "ai-writing",
+                description: "AI paraphrasing tool that helps rewrite sentences and paragraphs while maintaining original meaning",
+                tags: ["paraphrasing", "grammar", "rewriting", "free", "summarizer", "fluency"],
+                pricing: "freemium",
+                url: "https://quillbot.com",
+                popularity: 80,
+                isNew: false
+            },
+            {
+                id: 8,
+                name: "Wordtune",
+                category: "ai-writing",
+                description: "AI writing companion that suggests alternative phrasing and helps improve sentence structure",
+                tags: ["rewriting", "editing", "sentences", "freemium", "phrasing", "style"],
+                pricing: "freemium",
+                url: "https://wordtune.com",
+                popularity: 78,
+                isNew: false
+            },
+            {
+                id: 9,
+                name: "Anyword",
+                category: "ai-writing",
+                description: "AI copywriting platform with predictive performance scoring for marketing content",
+                tags: ["copywriting", "marketing", "predictive", "performance", "business", "analytics"],
+                pricing: "paid",
+                url: "https://anyword.com",
+                popularity: 75,
+                isNew: true
+            },
+            {
+                id: 10,
+                name: "Rytr",
+                category: "ai-writing",
+                description: "AI writing assistant that helps create high-quality content in 30+ languages with various tones",
+                tags: ["multilingual", "content", "writing", "freemium", "tone", "languages"],
+                pricing: "freemium",
+                url: "https://rytr.me",
+                popularity: 76,
+                isNew: false
+            },
+
+            // Image Generation Tools (20 tools)
+            {
+                id: 11,
+                name: "Midjourney",
+                category: "image-generation",
+                description: "AI-powered image generation from text descriptions with artistic and photorealistic results via Discord integration",
+                tags: ["image-generation", "art", "creative", "discord", "premium", "photorealistic"],
+                pricing: "paid",
+                url: "https://midjourney.com",
+                popularity: 96,
+                isNew: false
+            },
+            {
+                id: 12,
+                name: "DALL-E 3",
+                category: "image-generation",
+                description: "OpenAI's advanced image generation model with improved understanding of context, details, and text rendering",
+                tags: ["openai", "image-generation", "art", "free", "gpt-integrated", "high-quality"],
+                pricing: "freemium",
+                url: "https://openai.com/dall-e-3",
+                popularity: 94,
+                isNew: false
+            },
+            {
+                id: 13,
+                name: "Stable Diffusion",
+                category: "image-generation",
+                description: "Open-source AI image generation model with extensive customization, local deployment, and community models",
+                tags: ["open-source", "image-generation", "custom", "free", "local", "community"],
+                pricing: "free",
+                url: "https://stability.ai",
+                popularity: 90,
+                isNew: false
+            },
+            {
+                id: 14,
+                name: "Leonardo AI",
+                category: "image-generation",
+                description: "AI art generation platform with multiple models, real-time canvas, and professional editing tools",
+                tags: ["art", "generation", "styles", "freemium", "canvas", "models"],
+                pricing: "freemium",
+                url: "https://leonardo.ai",
+                popularity: 85,
+                isNew: false
+            },
+            {
+                id: 15,
+                name: "Canva AI",
+                category: "image-generation",
+                description: "AI-powered design tools integrated within Canva including Magic Write, image generation, and design assistance",
+                tags: ["design", "templates", "graphics", "freemium", "magic-write", "presentation"],
+                pricing: "freemium",
+                url: "https://canva.com",
+                popularity: 92,
+                isNew: false
+            },
+            {
+                id: 16,
+                name: "Adobe Firefly",
+                category: "image-generation",
+                description: "Adobe's AI image generation and editing tools integrated with Creative Cloud ecosystem",
+                tags: ["adobe", "editing", "creative", "professional", "photoshop", "premium"],
+                pricing: "paid",
+                url: "https://adobe.com/firefly",
+                popularity: 88,
+                isNew: false
+            },
+            {
+                id: 17,
+                name: "Runway ML",
+                category: "image-generation",
+                description: "Creative AI toolkit for image generation, video editing, and special effects with multiple AI models",
+                tags: ["creative", "video", "image", "art", "gen-2", "editing"],
+                pricing: "freemium",
+                url: "https://runwayml.com",
+                popularity: 84,
+                isNew: false
+            },
+            {
+                id: 18,
+                name: "DreamStudio",
+                category: "image-generation",
+                description: "Official Stable Diffusion web interface with advanced controls and customization options",
+                tags: ["stable-diffusion", "web-interface", "custom", "controls", "generation"],
+                pricing: "freemium",
+                url: "https://dreamstudio.ai",
+                popularity: 79,
+                isNew: false
+            },
+            {
+                id: 19,
+                name: "NightCafe",
+                category: "image-generation",
+                description: "AI art generator with multiple algorithms, styles, and community features for digital artists",
+                tags: ["art", "generation", "styles", "community", "algorithms", "digital"],
+                pricing: "freemium",
+                url: "https://nightcafe.studio",
+                popularity: 77,
+                isNew: false
+            },
+            {
+                id: 20,
+                name: "Photosonic",
+                category: "image-generation",
+                description: "AI image generator with artistic styles and commercial usage rights for creators",
+                tags: ["artistic", "commercial", "styles", "generation", "creators"],
+                pricing: "freemium",
+                url: "https://photosonic.ai",
+                popularity: 75,
+                isNew: true
+            },
+
+            // Video & Animation Tools (15 tools)
+            {
+                id: 21,
+                name: "Runway ML",
+                category: "video-animation",
+                description: "Creative AI toolkit for video editing, generation, and special effects with Gen-2 video model",
+                tags: ["video", "editing", "animation", "creative", "gen-2", "effects"],
+                pricing: "freemium",
+                url: "https://runwayml.com",
+                popularity: 89,
+                isNew: false
+            },
+            {
+                id: 22,
+                name: "Pika Labs",
+                category: "video-animation",
+                description: "AI video generation from text and image prompts with various styles and aspect ratios",
+                tags: ["video-generation", "text-to-video", "animation", "styles", "prompts"],
+                pricing: "freemium",
+                url: "https://pika.art",
+                popularity: 84,
+                isNew: true
+            },
+            {
+                id: 23,
+                name: "Synthesia",
+                category: "video-animation",
+                description: "AI video generation with realistic AI avatars for corporate training and presentations",
+                tags: ["avatars", "video", "presentation", "business", "corporate", "training"],
+                pricing: "paid",
+                url: "https://synthesia.io",
+                popularity: 82,
+                isNew: false
+            },
+            {
+                id: 24,
+                name: "HeyGen",
+                category: "video-animation",
+                description: "AI video creation with avatar customization, voice cloning, and multi-language support",
+                tags: ["avatar", "voice-cloning", "video", "marketing", "multilingual", "custom"],
+                pricing: "paid",
+                url: "https://heygen.com",
+                popularity: 80,
+                isNew: false
+            },
+            {
+                id: 25,
+                name: "InVideo",
+                category: "video-animation",
+                description: "AI-powered video creation and editing platform with templates and automated workflows",
+                tags: ["video-creation", "editing", "templates", "freemium", "workflows", "automated"],
+                pricing: "freemium",
+                url: "https://invideo.io",
+                popularity: 78,
+                isNew: false
+            },
+
+            // Audio & Music Tools (15 tools)
+            {
+                id: 26,
+                name: "ElevenLabs",
+                category: "audio-music",
+                description: "AI voice generation and text-to-speech with realistic, emotional voices and voice cloning",
+                tags: ["voice", "audio", "text-to-speech", "freemium", "voice-cloning", "emotional"],
+                pricing: "freemium",
+                url: "https://elevenlabs.io",
+                popularity: 87,
+                isNew: false
+            },
+            {
+                id: 27,
+                name: "Murf AI",
+                category: "audio-music",
+                description: "AI voice generator for podcasts, videos, presentations with studio-quality output",
+                tags: ["voice", "podcast", "video", "freemium", "studio-quality", "presentations"],
+                pricing: "freemium",
+                url: "https://murf.ai",
+                popularity: 82,
+                isNew: false
+            },
+            {
+                id: 28,
+                name: "AIVA",
+                category: "audio-music",
+                description: "AI music composition for films, games, commercials, and personal projects",
+                tags: ["music", "composition", "creative", "freemium", "films", "games"],
+                pricing: "freemium",
+                url: "https://aiva.ai",
+                popularity: 79,
+                isNew: false
+            },
+
+            // Productivity Tools (15 tools)
+            {
+                id: 29,
+                name: "Notion AI",
+                category: "productivity",
+                description: "AI-powered workspace for notes, tasks, databases, and project management with writing assistance",
+                tags: ["productivity", "notes", "organization", "freemium", "databases", "projects"],
+                pricing: "freemium",
+                url: "https://notion.so",
+                popularity: 90,
+                isNew: false
+            },
+
+            // AI Coding Tools (15 tools)
+            {
+                id: 30,
+                name: "GitHub Copilot",
+                category: "coding",
+                description: "AI pair programmer that suggests code in real-time across multiple programming languages",
+                tags: ["coding", "programming", "developer", "paid", "real-time", "multi-language"],
+                pricing: "paid",
+                url: "https://github.com/features/copilot",
+                popularity: 93,
+                isNew: false
+            },
+
+            // Marketing Tools (15 tools)
+            {
+                id: 31,
+                name: "HubSpot AI",
+                category: "marketing",
+                description: "AI tools for marketing automation, sales, customer service, and CRM integration",
+                tags: ["marketing", "crm", "sales", "freemium", "automation", "customer-service"],
+                pricing: "freemium",
+                url: "https://hubspot.com",
+                popularity: 85,
+                isNew: false
+            },
+// ============ NAYA CODE YAHAN SE SHURU ============
+{
+    id: 32,
+    name: "Copy.ai for Teams",
+    category: "marketing",
+    description: "AI copywriting platform for marketing teams with collaboration features and brand voice",
+    tags: ["copywriting", "marketing", "teams", "business", "collaboration", "brand"],
+    pricing: "paid",
+    url: "https://copy.ai",
+    popularity: 81,
+    isNew: false
+},
+{
+    id: 33,
+    name: "Surfer SEO",
+    category: "marketing",
+    description: "AI-powered SEO optimization and content planning with SERP analysis and keyword research",
+    tags: ["seo", "optimization", "content", "paid", "keywords", "serp"],
+    pricing: "paid",
+    url: "https://surferseo.com",
+    popularity: 79,
+    isNew: false
+},
+{
+    id: 34,
+    name: "Frase.io",
+    category: "marketing",
+    description: "AI content optimization and research tool for SEO and content marketing",
+    tags: ["seo", "content", "research", "paid", "optimization", "marketing"],
+    pricing: "paid",
+    url: "https://frase.io",
+    popularity: 76,
+    isNew: false
+},
+{
+    id: 35,
+    name: "MarketMuse",
+    category: "marketing",
+    description: "AI content planning and optimization platform for content strategy and SEO",
+    tags: ["content", "planning", "seo", "paid", "strategy", "optimization"],
+    pricing: "paid",
+    url: "https://marketmuse.com",
+    popularity: 74,
+    isNew: false
+},
+{
+    id: 36,
+    name: "Cortex",
+    category: "marketing",
+    description: "AI content creation for social media marketing and brand management",
+    tags: ["social-media", "content", "marketing", "paid", "brand", "management"],
+    pricing: "paid",
+    url: "https://meetcortex.com",
+    popularity: 72,
+    isNew: true
+},
+{
+    id: 37,
+    name: "Hootsuite Insights",
+    category: "marketing",
+    description: "AI-powered social media monitoring, analytics, and performance tracking",
+    tags: ["social-media", "analytics", "monitoring", "paid", "performance", "tracking"],
+    pricing: "paid",
+    url: "https://hootsuite.com",
+    popularity: 75,
+    isNew: false
+},
+{
+    id: 38,
+    name: "Buffer AI",
+    category: "marketing",
+    description: "AI assistant for social media management, scheduling, and content optimization",
+    tags: ["social-media", "management", "scheduling", "freemium", "content", "optimization"],
+    pricing: "freemium",
+    url: "https://buffer.com",
+    popularity: 77,
+    isNew: false
+},
+{
+    id: 39,
+    name: "Canva Magic Write",
+    category: "marketing",
+    description: "AI text generation for designs, marketing materials, and social media content",
+    tags: ["design", "text", "marketing", "freemium", "social-media", "content"],
+    pricing: "freemium",
+    url: "https://canva.com",
+    popularity: 85,
+    isNew: false
+},
+{
+    id: 40,
+    name: "Adobe Sensei",
+    category: "marketing",
+    description: "AI and machine learning framework across Adobe products for creative workflows",
+    tags: ["adobe", "machine-learning", "creative", "paid", "workflows", "automation"],
+    pricing: "paid",
+    url: "https://adobe.com/sensei",
+    popularity: 83,
+    isNew: false
+},
+{
+    id: 41,
+    name: "Replit AI",
+    category: "coding",
+    description: "AI coding assistant in the browser-based IDE with code generation and debugging",
+    tags: ["coding", "ide", "browser", "freemium", "debugging", "generation"],
+    pricing: "freemium",
+    url: "https://replit.com",
+    popularity: 82,
+    isNew: false
+},
+{
+    id: 42,
+    name: "Tabnine",
+    category: "coding",
+    description: "AI code completion tool for multiple programming languages and IDEs",
+    tags: ["code-completion", "programming", "developer", "freemium", "multi-language", "ides"],
+    pricing: "freemium",
+    url: "https://tabnine.com",
+    popularity: 80,
+    isNew: false
+},
+{
+    id: 43,
+    name: "Cursor",
+    category: "coding",
+    description: "AI-first code editor with built-in AI assistant and context-aware coding",
+    tags: ["code-editor", "ai-assistant", "programming", "free", "context-aware", "coding"],
+    pricing: "freemium",
+    url: "https://cursor.sh",
+    popularity: 78,
+    isNew: true
+},
+{
+    id: 44,
+    name: "Codeium",
+    category: "coding",
+    description: "Free AI code completion and chat tool for developers with multiple language support",
+    tags: ["code-completion", "free", "programming", "chat", "multi-language", "developers"],
+    pricing: "free",
+    url: "https://codeium.com",
+    popularity: 76,
+    isNew: false
+},
+{
+    id: 45,
+    name: "Amazon CodeWhisperer",
+    category: "coding",
+    description: "AI coding companion from Amazon with AWS integration and security scanning",
+    tags: ["coding", "amazon", "developer", "free", "aws", "security"],
+    pricing: "free",
+    url: "https://aws.amazon.com/codewhisperer",
+    popularity: 75,
+    isNew: false
+},
+{
+    id: 46,
+    name: "Sourcegraph Cody",
+    category: "coding",
+    description: "AI code assistant that understands your entire codebase for better suggestions",
+    tags: ["coding", "codebase", "assistant", "freemium", "understanding", "suggestions"],
+    pricing: "freemium",
+    url: "https://sourcegraph.com/cody",
+    popularity: 73,
+    isNew: true
+},
+{
+    id: 47,
+    name: "Mutable AI",
+    category: "coding",
+    description: "AI-powered code generation and transformation with natural language commands",
+    tags: ["code-generation", "transformation", "natural-language", "freemium", "commands"],
+    pricing: "freemium",
+    url: "https://mutable.ai",
+    popularity: 71,
+    isNew: false
+},
+{
+    id: 48,
+    name: "Stepsize AI",
+    category: "coding",
+    description: "AI-powered code review and technical debt management for development teams",
+    tags: ["code-review", "technical-debt", "teams", "paid", "management", "development"],
+    pricing: "paid",
+    url: "https://stepsize.com/ai",
+    popularity: 69,
+    isNew: true
+},
+{
+    id: 49,
+    name: "Boomerang",
+    category: "productivity",
+    description: "AI email assistant for scheduling, follow-ups, and email management",
+    tags: ["email", "scheduling", "productivity", "freemium", "management", "follow-ups"],
+    pricing: "freemium",
+    url: "https://boomerangapp.com/ai",
+    popularity: 74,
+    isNew: false
+},
+{
+    id: 50,
+    name: "Superhuman",
+    category: "productivity",
+    description: "AI-powered email client with smart features and workflow optimization",
+    tags: ["email", "client", "productivity", "paid", "workflow", "optimization"],
+    pricing: "paid",
+    url: "https://superhuman.com",
+    popularity: 77,
+    isNew: false
+},
+{
+    id: 51,
+    name: "Mem.ai",
+    category: "productivity",
+    description: "AI-powered note-taking and knowledge management with automatic organization",
+    tags: ["notes", "knowledge", "productivity", "freemium", "organization", "management"],
+    pricing: "freemium",
+    url: "https://mem.ai",
+    popularity: 75,
+    isNew: true
+},
+{
+    id: 52,
+    name: "Rewind AI",
+    category: "productivity",
+    description: "AI-powered search for everything you've seen, said, or heard on your computer",
+    tags: ["search", "memory", "productivity", "paid", "personal", "recall"],
+    pricing: "paid",
+    url: "https://rewind.ai",
+    popularity: 79,
+    isNew: false
+},
+{
+    id: 53,
+    name: "Clockwise",
+    category: "productivity",
+    description: "AI calendar assistant that optimizes your schedule and protects focus time",
+    tags: ["calendar", "scheduling", "productivity", "freemium", "optimization", "focus"],
+    pricing: "freemium",
+    url: "https://clockwise.com",
+    popularity: 73,
+    isNew: false
+},
+{
+    id: 54,
+    name: "Xembly",
+    category: "productivity",
+    description: "AI executive assistant for meeting notes, tasks, and schedule management",
+    tags: ["meetings", "tasks", "productivity", "paid", "assistant", "management"],
+    pricing: "paid",
+    url: "https://xembly.com",
+    popularity: 71,
+    isNew: true
+},
+{
+    id: 55,
+    name: "Otter.ai",
+    category: "productivity",
+    description: "AI meeting assistant for transcription, notes, and action item tracking",
+    tags: ["transcription", "meetings", "notes", "freemium", "action-items", "tracking"],
+    pricing: "freemium",
+    url: "https://otter.ai",
+    popularity: 82,
+    isNew: false
+},
+{
+    id: 56,
+    name: "Fireflies.ai",
+    category: "productivity",
+    description: "AI notetaker for meetings with transcription, analysis, and integration",
+    tags: ["meetings", "notes", "transcription", "freemium", "analysis", "integration"],
+    pricing: "freemium",
+    url: "https://fireflies.ai",
+    popularity: 80,
+    isNew: false
+},
+{
+    id: 57,
+    name: "Sembly",
+    category: "productivity",
+    description: "AI meeting recorder and transcription service with insights and summaries",
+    tags: ["meetings", "recording", "transcription", "freemium", "insights", "summaries"],
+    pricing: "freemium",
+    url: "https://sembly.ai",
+    popularity: 76,
+    isNew: false
+},
+{
+    id: 58,
+    name: "Krisp",
+    category: "audio-music",
+    description: "AI noise cancellation for crystal clear audio in meetings and recordings",
+    tags: ["noise-cancellation", "audio", "meetings", "freemium", "clear", "recording"],
+    pricing: "freemium",
+    url: "https://krisp.ai",
+    popularity: 84,
+    isNew: false
+},
+{
+    id: 59,
+    name: "Adobe Podcast",
+    category: "audio-music",
+    description: "AI audio enhancement for podcasters with noise reduction and quality improvement",
+    tags: ["podcast", "audio", "enhancement", "free", "noise-reduction", "quality"],
+    pricing: "free",
+    url: "https://podcast.adobe.com",
+    popularity: 79,
+    isNew: false
+},
+{
+    id: 60,
+    name: "LALAL.AI",
+    category: "audio-music",
+    description: "AI audio separation for vocals and instruments with high-quality extraction",
+    tags: ["audio", "separation", "vocals", "freemium", "instruments", "extraction"],
+    pricing: "freemium",
+    url: "https://lalal.ai",
+    popularity: 77,
+    isNew: false
+},
+{
+    id: 61,
+    name: "Boomy",
+    category: "audio-music",
+    description: "AI music creation platform for making original songs in seconds",
+    tags: ["music", "creation", "songs", "free", "original", "platform"],
+    pricing: "freemium",
+    url: "https://boomy.com",
+    popularity: 75,
+    isNew: false
+},
+{
+    id: 62,
+    name: "Soundraw",
+    category: "audio-music",
+    description: "AI music generator for content creators with customizable tracks",
+    tags: ["music", "generation", "content", "freemium", "customizable", "tracks"],
+    pricing: "freemium",
+    url: "https://soundraw.io",
+    popularity: 73,
+    isNew: false
+},
+{
+    id: 63,
+    name: "Amper Music",
+    category: "audio-music",
+    description: "AI music composition for videos, podcasts, and commercial projects",
+    tags: ["music", "composition", "videos", "paid", "commercial", "projects"],
+    pricing: "paid",
+    url: "https://ampermusic.com",
+    popularity: 71,
+    isNew: false
+},
+{
+    id: 64,
+    name: "Endel",
+    category: "audio-music",
+    description: "AI-generated soundscapes for focus, relaxation, and sleep",
+    tags: ["soundscapes", "focus", "relaxation", "freemium", "sleep", "wellness"],
+    pricing: "freemium",
+    url: "https://endel.io",
+    popularity: 74,
+    isNew: true
+},
+{
+    id: 65,
+    name: "Mubert",
+    category: "audio-music",
+    description: "AI music generator for streaming, videos, and commercial use",
+    tags: ["music", "generator", "streaming", "freemium", "commercial", "videos"],
+    pricing: "freemium",
+    url: "https://mubert.com",
+    popularity: 72,
+    isNew: false
+},
+{
+    id: 66,
+    name: "Synthesia",
+    category: "video-animation",
+    description: "AI video generation with realistic avatars for training and presentations",
+    tags: ["avatars", "video", "training", "paid", "presentations", "corporate"],
+    pricing: "paid",
+    url: "https://synthesia.io",
+    popularity: 85,
+    isNew: false
+},
+{
+    id: 67,
+    name: "Descript",
+    category: "video-animation",
+    description: "AI video and podcast editing with transcription and overdub features",
+    tags: ["video", "editing", "podcast", "freemium", "transcription", "overdub"],
+    pricing: "freemium",
+    url: "https://descript.com",
+    popularity: 82,
+    isNew: false
+},
+{
+    id: 68,
+    name: "Luma Dream Machine",
+    category: "video-animation",
+    description: "AI video generation from text and images with 3D capabilities",
+    tags: ["video-generation", "3d", "animation", "free", "text-to-video", "images"],
+    pricing: "freemium",
+    url: "https://lumalabs.ai",
+    popularity: 80,
+    isNew: true
+},
+{
+    id: 69,
+    name: "Fliki",
+    category: "video-animation",
+    description: "AI video creation from text with voiceovers and stock media",
+    tags: ["video-creation", "text-to-video", "voiceovers", "freemium", "stock-media"],
+    pricing: "freemium",
+    url: "https://fliki.ai",
+    popularity: 78,
+    isNew: false
+},
+{
+    id: 70,
+    name: "Pictory",
+    category: "video-animation",
+    description: "AI video generator for social media and marketing from text content",
+    tags: ["video-generation", "social-media", "marketing", "freemium", "text-to-video"],
+    pricing: "freemium",
+    url: "https://pictory.ai",
+    popularity: 76,
+    isNew: false
+},
+{
+    id: 71,
+    name: "DeepBrain AI",
+    category: "video-animation",
+    description: "AI video generation with realistic human avatars and voice synthesis",
+    tags: ["avatars", "video", "realistic", "paid", "voice-synthesis", "human"],
+    pricing: "paid",
+    url: "https://deepbrain.io",
+    popularity: 74,
+    isNew: true
+},
+{
+    id: 72,
+    name: "Colossyan",
+    category: "video-animation",
+    description: "AI video platform for learning and development with multilingual avatars",
+    tags: ["video", "learning", "multilingual", "paid", "avatars", "development"],
+    pricing: "paid",
+    url: "https://colossyan.com",
+    popularity: 72,
+    isNew: false
+},
+{
+    id: 73,
+    name: "Steve AI",
+    category: "video-animation",
+    description: "AI video and animation maker for content creators and marketers",
+    tags: ["video", "animation", "content", "freemium", "creators", "marketers"],
+    pricing: "freemium",
+    url: "https://steve.ai",
+    popularity: 70,
+    isNew: false
+},
+{
+    id: 74,
+    name: "Raw Shorts",
+    category: "video-animation",
+    description: "AI video maker for explainer videos and animated presentations",
+    tags: ["video", "explainer", "animation", "freemium", "presentations", "maker"],
+    pricing: "freemium",
+    url: "https://rawshorts.com",
+    popularity: 68,
+    isNew: false
+},
+{
+    id: 75,
+    name: "Visla",
+    category: "video-animation",
+    description: "AI video creation platform for teams and collaborative projects",
+    tags: ["video", "creation", "teams", "paid", "collaborative", "projects"],
+    pricing: "paid",
+    url: "https://visla.us",
+    popularity: 66,
+    isNew: true
+},
+{
+    id: 76,
+    name: "Designs AI",
+    category: "image-generation",
+    description: "AI design tool for logos, videos, and voiceovers with creative automation",
+    tags: ["design", "logos", "videos", "freemium", "automation", "creative"],
+    pricing: "freemium",
+    url: "https://designs.ai",
+    popularity: 73,
+    isNew: false
+},
+{
+    id: 77,
+    name: "Looka",
+    category: "image-generation",
+    description: "AI logo maker and brand identity platform for businesses",
+    tags: ["logo", "brand", "identity", "freemium", "business", "maker"],
+    pricing: "freemium",
+    url: "https://looka.com",
+    popularity: 75,
+    isNew: false
+},
+{
+    id: 78,
+    name: "Jasper Art",
+    category: "image-generation",
+    description: "AI image generation integrated with Jasper writing platform",
+    tags: ["image-generation", "art", "jasper", "paid", "integrated", "writing"],
+    pricing: "paid",
+    url: "https://jasper.ai/art",
+    popularity: 77,
+    isNew: false
+},
+{
+    id: 79,
+    name: "Stockimg AI",
+    category: "image-generation",
+    description: "AI stock image generation for various categories and styles",
+    tags: ["stock", "images", "generation", "freemium", "styles", "categories"],
+    pricing: "freemium",
+    url: "https://stockimg.ai",
+    popularity: 71,
+    isNew: true
+},
+{
+    id: 80,
+    name: "Patterned AI",
+    category: "image-generation",
+    description: "AI pattern generation for textiles, wallpapers, and designs",
+    tags: ["patterns", "textiles", "designs", "freemium", "wallpapers", "generation"],
+    pricing: "freemium",
+    url: "https://patterned.ai",
+    popularity: 69,
+    isNew: false
+}
+// ============ NAYA CODE YAHAN KHATAM ============
+];
+
+        // Global variables
+        let currentTools = [];
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            displayTools(aiTools);
+            updateResultsCount(aiTools.length);
+            setupEventListeners();
+        });
+
+        // Display tools function
+        function displayTools(tools) {
+            const toolsGrid = document.getElementById('toolsGrid');
+            toolsGrid.innerHTML = '';
+
+            if (tools.length === 0) {
+                toolsGrid.innerHTML = `
+                    <div class="no-results">
+                        <h3>No tools found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            tools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-card';
+                
+                toolCard.innerHTML = `
+                    <div class="tool-header">
+                        <div class="tool-logo">${tool.name.charAt(0)}</div>
+                        <div class="tool-name">${tool.name} ${tool.isNew ? '<span style="color: #ef4444; font-size: 0.7rem;">NEW</span>' : ''}</div>
+                    </div>
+                    <div class="tool-description">${tool.description}</div>
+                    <div class="tool-tags">
+                        ${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="tool-footer">
+                        <span class="pricing-badge pricing-${tool.pricing}">
+                            ${tool.pricing.charAt(0).toUpperCase() + tool.pricing.slice(1)}
+                        </span>
+                        <a href="${tool.url}" target="_blank" class="visit-btn">Visit Tool</a>
+                    </div>
+                `;
+                
+                toolsGrid.appendChild(toolCard);
+            });
+
+            updateResultsCount(tools.length);
+        }
+
+        // Search function
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            currentSearchTerm = searchTerm;
+            
+            let filteredTools = aiTools;
+
+            // Apply category filter
+            if (currentCategory !== 'all') {
+                filteredTools = filteredTools.filter(tool => tool.category === currentCategory);
+            }
+
+            // Apply search filter
+            if (searchTerm !== '') {
+                filteredTools = filteredTools.filter(tool => 
+                    tool.name.toLowerCase().includes(searchTerm) ||
+                    tool.description.toLowerCase().includes(searchTerm) ||
+                    tool.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            // Apply pricing filter
+            const pricingFilter = document.getElementById('pricingFilter').value;
+            if (pricingFilter !== 'all') {
+                filteredTools = filteredTools.filter(tool => tool.pricing === pricingFilter);
+            }
+
+            currentTools = filteredTools;
+            displayTools(filteredTools);
+        }
+
+        // Category filter function
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            performSearch();
+        }
+
+        // Filter tools based on pricing and search
+        function filterTools() {
+            performSearch();
+        }
+
+        // Sort tools
+        function sortTools() {
+            const sortBy = document.getElementById('sortBy').value;
+            let sortedTools = [...currentTools];
+
+            switch (sortBy) {
+                case 'popular':
+                    sortedTools.sort((a, b) => b.popularity - a.popularity);
+                    break;
+                case 'newest':
+                    sortedTools.sort((a, b) => b.id - a.id);
+                    break;
+                case 'name':
+                    sortedTools.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+            }
+
+            displayTools(sortedTools);
+        }
+
+        // Update results count
+        function updateResultsCount(count) {
+            document.getElementById('resultsCount').textContent = count;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search on Enter key
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
